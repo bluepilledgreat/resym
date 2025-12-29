@@ -329,6 +329,7 @@ where
         print_access_specifiers: bool,
         integers_as_hexadecimal: bool,
         ignore_std_types: bool,
+        ignore_compiler_generated_methods: bool,
     ) -> Result<ReconstructedType> {
         // Populate our `TypeFinder` and find the right type index
         let mut type_index = TypeIndex::default();
@@ -419,6 +420,7 @@ where
                 print_access_specifiers,
                 integers_as_hexadecimal,
                 ignore_std_types,
+                ignore_compiler_generated_methods,
             )
         }
     }
@@ -431,6 +433,7 @@ where
         print_access_specifiers: bool,
         integers_as_hexadecimal: bool,
         ignore_std_types: bool,
+        ignore_compiler_generated_methods: bool,
     ) -> Result<ReconstructedType> {
         // Populate our `TypeFinder`
         let mut type_finder = self.type_information.finder();
@@ -449,6 +452,7 @@ where
             print_access_specifiers,
             integers_as_hexadecimal,
             ignore_std_types,
+            ignore_compiler_generated_methods,
         )
     }
 
@@ -808,10 +812,12 @@ where
         print_access_specifiers: bool,
         integers_as_hexadecimal: bool,
         ignore_std_types: bool,
+        ignore_compiler_generated_methods: bool,
     ) -> Result<ReconstructedType> {
         let fmt_configuration = DataFormatConfiguration {
             print_access_specifiers,
             integers_as_hexadecimal,
+            ignore_compiler_generated_methods,
         };
         let mut type_data = pdb_types::Data::new(ignore_std_types);
 
@@ -915,6 +921,7 @@ where
         print_access_specifiers: bool,
         integers_as_hexadecimal: bool,
         ignore_std_types: bool,
+        ignore_compiler_generated_methods: bool,
     ) -> Result<String> {
         let mut type_data = pdb_types::Data::new(ignore_std_types);
         let mut processed_types = Vec::new();
@@ -989,6 +996,7 @@ where
             &DataFormatConfiguration {
                 print_access_specifiers,
                 integers_as_hexadecimal,
+                ignore_compiler_generated_methods,
             },
             &type_depth_map,
             &mut reconstruction_output,

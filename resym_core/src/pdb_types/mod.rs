@@ -1114,6 +1114,7 @@ fn find_unnamed_structs_in_unions(fields: &[Field]) -> Vec<Range<usize>> {
 pub struct DataFormatConfiguration {
     pub print_access_specifiers: bool,
     pub integers_as_hexadecimal: bool,
+    pub ignore_compiler_generated_methods: bool,
 }
 
 impl Default for DataFormatConfiguration {
@@ -1121,6 +1122,7 @@ impl Default for DataFormatConfiguration {
         Self {
             print_access_specifiers: true,
             integers_as_hexadecimal: true,
+            ignore_compiler_generated_methods: true,
         }
     }
 }

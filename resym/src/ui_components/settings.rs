@@ -118,6 +118,10 @@ impl SettingsComponent {
                     &mut self.app_settings.print_line_numbers,
                     "Print line numbers",
                 );
+                ui.checkbox(
+                    &mut self.app_settings.ignore_compiler_generated_methods,
+                    "Ignore compiler generated methods",
+                );
             });
     }
 }

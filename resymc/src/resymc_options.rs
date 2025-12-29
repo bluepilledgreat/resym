@@ -55,6 +55,9 @@ pub enum ResymcOptions {
         /// Filter out types in the `std` namespace
         #[structopt(short = "s", long)]
         ignore_std_types: bool,
+        /// Ignore compiler generated methods
+        #[structopt(short = "g", long)]
+        ignore_compiler_generated_methods: bool,
         /// Highlight C++ output
         #[structopt(short = "H", long)]
         highlight_syntax: bool,
@@ -80,6 +83,9 @@ pub enum ResymcOptions {
         /// Filter out types in the `std` namespace
         #[structopt(short = "s", long)]
         ignore_std_types: bool,
+        /// Ignore compiler generated methods
+        #[structopt(short = "g", long)]
+        ignore_compiler_generated_methods: bool,
         /// Highlight C++ output
         #[structopt(short = "H", long)]
         highlight_syntax: bool,
@@ -112,6 +118,9 @@ pub enum ResymcOptions {
         /// Filter out types in the `std` namespace
         #[structopt(short = "s", long)]
         ignore_std_types: bool,
+        /// Ignore compiler generated methods
+        #[structopt(short = "g", long)]
+        ignore_compiler_generated_methods: bool,
         /// Highlight C++ output and add/deleted lines
         #[structopt(short = "H", long)]
         highlight_syntax: bool,

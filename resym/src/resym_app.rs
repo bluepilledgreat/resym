@@ -303,6 +303,7 @@ impl ResymApp {
                                             self.settings.app_settings.print_access_specifiers,
                                             self.settings.app_settings.integers_as_hexadecimal,
                                             self.settings.app_settings.ignore_std_types,
+                                            self.settings.app_settings.ignore_compiler_generated_methods,
                                         ),
                                     ) {
                                         log::error!("Failed to reconstruct type: {}", err);
@@ -320,6 +321,7 @@ impl ResymApp {
                                             self.settings.app_settings.print_access_specifiers,
                                             self.settings.app_settings.integers_as_hexadecimal,
                                             self.settings.app_settings.ignore_std_types,
+                                            self.settings.app_settings.ignore_compiler_generated_methods,
                                         ))
                                     {
                                         log::error!("Failed to reconstruct type diff: {}", err);
@@ -542,6 +544,7 @@ impl ResymApp {
                                         self.settings.app_settings.print_access_specifiers,
                                         self.settings.app_settings.integers_as_hexadecimal,
                                         self.settings.app_settings.ignore_std_types,
+                                        self.settings.app_settings.ignore_compiler_generated_methods,
                                     ))
                             {
                                 log::error!("Failed to reconstruct type: {}", err);

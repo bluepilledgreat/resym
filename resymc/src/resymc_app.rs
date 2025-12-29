@@ -99,6 +99,7 @@ impl ResymcApp {
         print_access_specifiers: bool,
         integers_as_hexadecimal: bool,
         ignore_std_types: bool,
+        ignore_compiler_generated_methods: bool,
         highlight_syntax: bool,
         output_file_path: Option<PathBuf>,
     ) -> Result<()> {
@@ -126,6 +127,7 @@ impl ResymcApp {
                     print_access_specifiers,
                     integers_as_hexadecimal,
                     ignore_std_types,
+                    ignore_compiler_generated_methods,
                 ))?;
         } else {
             self.backend
@@ -136,6 +138,7 @@ impl ResymcApp {
                     print_access_specifiers,
                     integers_as_hexadecimal,
                     ignore_std_types,
+                    ignore_compiler_generated_methods,
                 ))?;
         }
         // Wait for the backend to finish filtering types
@@ -176,6 +179,7 @@ impl ResymcApp {
         print_access_specifiers: bool,
         integers_as_hexadecimal: bool,
         ignore_std_types: bool,
+        ignore_compiler_generated_methods: bool,
         highlight_syntax: bool,
         output_file_path: Option<PathBuf>,
     ) -> Result<()> {
@@ -226,6 +230,7 @@ impl ResymcApp {
             print_access_specifiers,
             integers_as_hexadecimal,
             ignore_std_types,
+            ignore_compiler_generated_methods,
         ))?;
         // Wait for the backend to finish
         if let FrontendCommand::DiffResult(reconstructed_type_diff_result) =
@@ -788,6 +793,7 @@ mod tests {
                 false,
                 false,
                 false,
+                false,
                 None
             )
             .is_err());
@@ -804,6 +810,7 @@ mod tests {
                 pdb_path,
                 None,
                 PrimitiveReconstructionFlavor::Microsoft,
+                true,
                 true,
                 true,
                 true,
@@ -829,6 +836,7 @@ mod tests {
                 pdb_path,
                 Some("resym_test::ClassWithNestedDeclarationsTest".to_string()),
                 PrimitiveReconstructionFlavor::Microsoft,
+                false,
                 false,
                 false,
                 false,
@@ -867,6 +875,7 @@ mod tests {
                 false,
                 false,
                 false,
+                false,
                 None
             )
             .is_err());
@@ -887,6 +896,7 @@ mod tests {
                 true,
                 true,
                 true,
+                false,
                 false,
                 true,
                 true,
@@ -912,6 +922,7 @@ mod tests {
                 pdb_path_to,
                 "UserStructAddAndReplace".to_string(),
                 PrimitiveReconstructionFlavor::Portable,
+                false,
                 false,
                 false,
                 false,

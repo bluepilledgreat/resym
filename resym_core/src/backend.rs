@@ -60,6 +60,7 @@ pub enum BackendCommand {
         bool,
         bool,
         bool,
+        bool,
     ),
     /// Reconstruct a type given its name for a given PDB.
     ReconstructTypeByName(
@@ -71,11 +72,13 @@ pub enum BackendCommand {
         bool,
         bool,
         bool,
+        bool,
     ),
     /// Reconstruct all types found in a given PDB.
     ReconstructAllTypes(
         PDBSlot,
         PrimitiveReconstructionFlavor,
+        bool,
         bool,
         bool,
         bool,
@@ -115,6 +118,7 @@ pub enum BackendCommand {
         PDBSlot,
         String,
         PrimitiveReconstructionFlavor,
+        bool,
         bool,
         bool,
         bool,
@@ -363,6 +367,7 @@ fn worker_thread_routine(
                 print_access_specifiers,
                 integers_as_hexadecimal,
                 ignore_std_types,
+                ignore_compiler_generated_methods,
             ) => {
                 if let Some(pdb_file) = pdb_files.get(&pdb_slot) {
                     let reconstructed_type_result = reconstruct_type_by_index_command(
@@ -374,6 +379,7 @@ fn worker_thread_routine(
                         print_access_specifiers,
                         integers_as_hexadecimal,
                         ignore_std_types,
+                        ignore_compiler_generated_methods,
                     );
                     frontend_controller.send_command(FrontendCommand::ReconstructTypeResult(
                         reconstructed_type_result,
@@ -390,6 +396,7 @@ fn worker_thread_routine(
                 print_access_specifiers,
                 integers_as_hexadecimal,
                 ignore_std_types,
+                ignore_compiler_generated_methods,
             ) => {
                 if let Some(pdb_file) = pdb_files.get(&pdb_slot) {
                     let reconstructed_type_result = reconstruct_type_by_name_command(
@@ -401,6 +408,7 @@ fn worker_thread_routine(
                         print_access_specifiers,
                         integers_as_hexadecimal,
                         ignore_std_types,
+                        ignore_compiler_generated_methods,
                     );
                     frontend_controller.send_command(FrontendCommand::ReconstructTypeResult(
                         reconstructed_type_result,
@@ -415,6 +423,7 @@ fn worker_thread_routine(
                 print_access_specifiers,
                 integers_as_hexadecimal,
                 ignore_std_types,
+                ignore_compiler_generated_methods,
             ) => {
                 if let Some(pdb_file) = pdb_files.get(&pdb_slot) {
                     let reconstructed_type_result = reconstruct_all_types_command(
@@ -424,6 +433,7 @@ fn worker_thread_routine(
                         print_access_specifiers,
                         integers_as_hexadecimal,
                         ignore_std_types,
+                        ignore_compiler_generated_methods,
                     );
                     frontend_controller.send_command(FrontendCommand::ReconstructTypeResult(
                         // Note: do not return any "xrefs from" when reconstructing all types
@@ -676,6 +686,7 @@ fn worker_thread_routine(
                 print_access_specifiers,
                 integers_as_hexadecimal,
                 ignore_std_types,
+                ignore_compiler_generated_methods,
             ) => {
                 if let Some(pdb_file_from) = pdb_files.get(&pdb_from_slot) {
                     if let Some(pdb_file_to) = pdb_files.get(&pdb_to_slot) {
@@ -689,6 +700,7 @@ fn worker_thread_routine(
                             print_access_specifiers,
                             integers_as_hexadecimal,
                             ignore_std_types,
+                            ignore_compiler_generated_methods,
                         );
                         frontend_controller
                             .send_command(FrontendCommand::DiffResult(type_diff_result))?;
@@ -742,6 +754,7 @@ fn reconstruct_type_by_index_command<'p, T>(
     print_access_specifiers: bool,
     integers_as_hexadecimal: bool,
     ignore_std_types: bool,
+    ignore_compiler_generated_methods: bool,
 ) -> Result<ReconstructedType>
 where
     T: io::Seek + io::Read + std::fmt::Debug + 'p,
@@ -753,6 +766,7 @@ where
         print_access_specifiers,
         integers_as_hexadecimal,
         ignore_std_types,
+        ignore_compiler_generated_methods,
     )?;
     if print_header {
         let file_header = generate_file_header(pdb_file, primitives_flavor, true, ignore_std_types);
@@ -771,6 +785,7 @@ fn reconstruct_type_by_name_command<'p, T>(
     print_access_specifiers: bool,
     integers_as_hexadecimal: bool,
     ignore_std_types: bool,
+    ignore_compiler_generated_methods: bool,
 ) -> Result<ReconstructedType>
 where
     T: io::Seek + io::Read + std::fmt::Debug + 'p,
@@ -782,6 +797,7 @@ where
         print_access_specifiers,
         integers_as_hexadecimal,
         ignore_std_types,
+        ignore_compiler_generated_methods,
     )?;
     if print_header {
         let file_header = generate_file_header(pdb_file, primitives_flavor, true, ignore_std_types);
@@ -798,6 +814,7 @@ fn reconstruct_all_types_command<'p, T>(
     print_access_specifiers: bool,
     integers_as_hexadecimal: bool,
     ignore_std_types: bool,
+    ignore_compiler_generated_methods: bool,
 ) -> Result<String>
 where
     T: io::Seek + io::Read + std::fmt::Debug + 'p,
@@ -807,6 +824,7 @@ where
         print_access_specifiers,
         integers_as_hexadecimal,
         ignore_std_types,
+        ignore_compiler_generated_methods,
     )?;
     if print_header {
         let file_header = generate_file_header(pdb_file, primitives_flavor, true, ignore_std_types);

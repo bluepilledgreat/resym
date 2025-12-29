@@ -44,6 +44,7 @@ fn main() -> Result<()> {
             print_access_specifiers,
             integers_as_hexadecimal,
             ignore_std_types,
+            ignore_compiler_generated_methods,
             highlight_syntax,
         } => app.dump_types_command(
             pdb_path,
@@ -54,6 +55,7 @@ fn main() -> Result<()> {
             print_access_specifiers,
             integers_as_hexadecimal,
             ignore_std_types,
+            ignore_compiler_generated_methods,
             highlight_syntax,
             output_file_path,
         ),
@@ -65,6 +67,7 @@ fn main() -> Result<()> {
             print_access_specifiers,
             integers_as_hexadecimal,
             ignore_std_types,
+            ignore_compiler_generated_methods,
             highlight_syntax,
         } => app.dump_types_command(
             pdb_path,
@@ -74,6 +77,7 @@ fn main() -> Result<()> {
             false,
             print_access_specifiers,
             integers_as_hexadecimal,
+            ignore_compiler_generated_methods,
             ignore_std_types,
             highlight_syntax,
             output_file_path,
@@ -89,6 +93,7 @@ fn main() -> Result<()> {
             print_access_specifiers,
             integers_as_hexadecimal,
             ignore_std_types,
+            ignore_compiler_generated_methods,
             highlight_syntax,
         } => app.diff_type_command(
             from_pdb_path,
@@ -100,6 +105,7 @@ fn main() -> Result<()> {
             print_access_specifiers,
             integers_as_hexadecimal,
             ignore_std_types,
+            ignore_compiler_generated_methods,
             highlight_syntax,
             output_file_path,
         ),

@@ -18,6 +18,7 @@ pub struct ResymAppSettings {
     // Ignore types in the `std` namespace (e.g., STL-generated types)
     pub ignore_std_types: bool,
     pub print_line_numbers: bool,
+    pub ignore_compiler_generated_methods: bool,
 }
 
 impl Default for ResymAppSettings {
@@ -35,6 +36,7 @@ impl Default for ResymAppSettings {
             print_access_specifiers: true,
             ignore_std_types: true,
             print_line_numbers: false,
+            ignore_compiler_generated_methods: true,
         }
     }
 }
