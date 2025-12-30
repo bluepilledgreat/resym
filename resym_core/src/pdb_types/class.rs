@@ -421,6 +421,15 @@ impl<'p> Class<'p> {
 
         Ok(())
     }
+
+    fn get_class_name(name: &str) -> String {
+        // remove the namespace from the name
+        if let Some(index) = name.rfind(':') {
+            name[(index + 1)..].to_string()
+        } else {
+            name.to_string()
+        }
+    }
 }
 
 impl ReconstructibleTypeData for Class<'_> {
@@ -507,11 +516,12 @@ impl ReconstructibleTypeData for Class<'_> {
         }
 
         if !self.instance_methods.is_empty() {
-            let class_name = self.name.as_str().into();
+            //let class_name = self.name.as_str().into();
+            let class_name = Class::get_class_name(self.name.as_str());
             writeln!(f, "  ")?;
             for method in &self.instance_methods {
                 if !fmt_configuration.ignore_compiler_generated_methods || !method.is_compiler_generated {
-                    let method_has_class_name = method.name == class_name;
+                    let method_has_class_name = method.name.to_string() == class_name;
                     writeln!(
                         f,
                         "  {}{}{}{}{}({}){}{}{}{};",
