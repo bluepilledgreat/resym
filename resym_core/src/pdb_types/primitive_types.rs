@@ -101,6 +101,7 @@ fn primitive_kind_as_str_portable(
 
         pdb::PrimitiveKind::F32 => Ok("float"),
         pdb::PrimitiveKind::F64 => Ok("double"),
+        pdb::PrimitiveKind::F80 => Ok("long double"),
 
         pdb::PrimitiveKind::Bool8 => Ok("bool"),
         pdb::PrimitiveKind::Bool32 => Ok("int32_t"),
